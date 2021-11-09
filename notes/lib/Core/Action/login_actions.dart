@@ -28,7 +28,7 @@ class DidLoginAction {
 
 // Did Fail Login
 class DidFailLoginAction {
-  final Error error;
+  final Exception error;
 
   DidFailLoginAction({required this.error});
 }

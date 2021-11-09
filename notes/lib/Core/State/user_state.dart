@@ -23,8 +23,14 @@ class UserState extends Equatable {
 extension UserStateReducer on UserState {
   static UserState reduce(UserState state, action) {
     switch (action.runtimeType) {
+      case PrecessingLoginAction:
+        return state.copyWith(loginInProgress: true);
+
       case DidLoginAction:
         return state.copyWith(me: action.user, loginInProgress: false);
+
+      case DidFailLoginAction:
+        return state.copyWith(loginInProgress: false);
 
       case LogOutAction:
         return state.copyWithNull();
