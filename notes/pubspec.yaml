@@ -11,17 +11,19 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   cupertino_icons: ^1.0.2
-  english_words: ^4.0.0
   redux: ^5.0.0
   flutter_redux: ^0.8.2
   equatable: ^2.0.3
   copy_with_extension: ^2.0.2
+  retrofit: ^2.2.0
+  json_annotation: ^4.3.0
 
 dev_dependencies:
+  retrofit_generator: ^2.2.0
   build_runner: ^2.0.0
   copy_with_extension_gen: ^2.0.3
+  json_serializable: ^6.0.1
   flutter_test:
     sdk: flutter
 

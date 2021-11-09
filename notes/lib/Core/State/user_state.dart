@@ -10,8 +10,9 @@ part 'user_state.g.dart';
 @CopyWith(generateCopyWithNull: true)
 class UserState extends Equatable {
   final User? me;
+  final bool loginInProgress;
 
-  const UserState({this.me});
+  const UserState({this.me, this.loginInProgress = false});
 
   @override
   List<Object?> get props => [me];
@@ -23,7 +24,7 @@ extension UserStateReducer on UserState {
   static UserState reduce(UserState state, action) {
     switch (action.runtimeType) {
       case DidLoginAction:
-        return state.copyWith(me: action.user);
+        return state.copyWith(me: action.user, loginInProgress: false);
 
       case LogOutAction:
         return state.copyWithNull();

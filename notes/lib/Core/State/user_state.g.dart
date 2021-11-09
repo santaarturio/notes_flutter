@@ -8,9 +8,11 @@ part of 'user_state.dart';
 
 extension UserStateCopyWith on UserState {
   UserState copyWith({
+    bool? loginInProgress,
     User? me,
   }) {
     return UserState(
+      loginInProgress: loginInProgress ?? this.loginInProgress,
       me: me ?? this.me,
     );
   }
@@ -19,6 +21,7 @@ extension UserStateCopyWith on UserState {
     bool me = false,
   }) {
     return UserState(
+      loginInProgress: loginInProgress,
       me: me == true ? null : this.me,
     );
   }
