@@ -15,7 +15,7 @@ class DidReloadNotesAction {
 
 // Did Fail Reload
 class DidFailReloadNotesAction {
-  final Error error;
+  final Exception error;
 
   DidFailReloadNotesAction({required this.error});
 }
