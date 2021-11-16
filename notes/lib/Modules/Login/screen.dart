@@ -37,6 +37,10 @@ class _LoginScreenState extends State<LoginScreen> {
     final bool isValid = _formKey.currentState!.validate();
     if (isValid) {
       props.login(_name, _email, _password);
+
+      if (Navigator.canPop(context)) {
+        Navigator.of(context).pop();
+      }
     }
   }
 
@@ -111,12 +115,14 @@ class _LoginScreenState extends State<LoginScreen> {
       return (value ?? "").trim().length < 8
           ? 'This field requires a minimum of 8 characters'
           : null;
-    }, 'Enter Your Password');
+    }, 'Enter Your Password', obscureText: true);
   }
 
   _textFormField(Function(String) onChanged,
-      String? Function(String?) validator, String labelText) {
+      String? Function(String?) validator, String labelText,
+      {bool obscureText = false}) {
     return TextFormField(
+      obscureText: obscureText,
       onChanged: onChanged,
       validator: validator,
       decoration: InputDecoration(

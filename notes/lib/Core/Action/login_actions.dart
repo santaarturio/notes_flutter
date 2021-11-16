@@ -1,19 +1,19 @@
 import 'package:notes/Model/user_model.dart';
 
-enum LoginType { signIn, signUp }
-
 // Trigger
-class LoginAction {
-  final LoginType loginType;
+class SignInAction {
+  final String email;
+  final String password;
+
+  SignInAction(this.email, this.password);
+}
+
+class SignUpAction {
   final String? name;
   final String email;
   final String password;
 
-  LoginAction(
-      {required this.loginType,
-      required this.email,
-      required this.password,
-      this.name});
+  SignUpAction(this.name, this.email, this.password);
 }
 
 // Progress

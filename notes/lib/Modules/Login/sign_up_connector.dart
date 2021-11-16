@@ -13,11 +13,7 @@ class SignUpConnector extends StatelessWidget {
     const canSignUp = false;
 
     void login(String? name, String email, String password) {
-      store.dispatch(LoginAction(
-          loginType: LoginType.signUp,
-          email: email,
-          password: password,
-          name: name));
+      store.dispatch(SignUpAction(name, email, password));
     }
 
     return LoginProps(isLoginInProgress, canSignUp, login);

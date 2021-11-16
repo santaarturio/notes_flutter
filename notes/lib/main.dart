@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:notes/Modules/Root/root_connector.dart';
 import 'Core/Store/app_store.dart';
-import 'Modules/Login/sign_in_connector.dart';
 
 void main() => runApp(NotesApp());
 
@@ -14,28 +14,8 @@ class NotesApp extends StatelessWidget {
       store: store,
       child: const MaterialApp(
         title: 'Notes',
-        home: SignInConnector(),
+        home: RootConnector(),
       ),
-    );
-  }
-}
-
-class RootWidget extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _RootWidgetState();
-}
-
-class _RootWidgetState extends State<RootWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Notes'),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.amber,
-      ),
-      body: const Center(child: Text('later...')),
     );
   }
 }
