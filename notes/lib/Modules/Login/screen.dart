@@ -1,6 +1,8 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:notes/Modules/Login/sign_up_connector.dart';
 
 // MARK: - Props
 class LoginProps {
@@ -41,7 +43,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
       body: SafeArea(
           child: Padding(
               padding: const EdgeInsets.all(16),
@@ -65,6 +66,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ))),
+      floatingActionButton: props.canSignUp
+          ? Container()
+          : BackButton(onPressed: () {
+              Navigator.of(context).pop();
+            }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
     );
   }
 
@@ -146,7 +153,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ? SizedBox(
             height: 60,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SignUpConnector()));
+              },
               style: TextButton.styleFrom(
                 textStyle: const TextStyle(fontSize: 18),
                 primary: Colors.black,
