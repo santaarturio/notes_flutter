@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_print
+// ignore_for_file: file_names
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,24 +19,20 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key, required this.props}) : super(key: key);
 
   @override
-  // ignore: no_logic_in_create_state
-  State<LoginScreen> createState() => _LoginScreenState(props);
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  final LoginProps props;
 
   String _name = "";
   String _email = "";
   String _password = "";
 
-  _LoginScreenState(this.props);
-
   void _login() {
     final bool isValid = _formKey.currentState!.validate();
     if (isValid) {
-      props.login(_name, _email, _password);
+      widget.props.login(_name, _email, _password);
 
       if (Navigator.canPop(context)) {
         Navigator.of(context).pop();
@@ -63,14 +59,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 16),
                       _passwordTextFormField(),
                       const SizedBox(height: 64),
-                      _signInButton(),
+                      _loginButton(),
                       const SizedBox(height: 16),
                       _signUpButton(),
                     ],
                   ),
                 ),
               ))),
-      floatingActionButton: props.canSignUp
+      floatingActionButton: widget.props.canSignUp
           ? Container()
           : BackButton(onPressed: () {
               Navigator.of(context).pop();
@@ -89,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _nameTextFormField() {
-    return props.canSignUp
+    return widget.props.canSignUp
         ? const SizedBox()
         : _textFormField((name) {
             _name = name;
@@ -136,26 +132,28 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  _signInButton() {
-    return SizedBox(
-      width: double.infinity,
-      height: 60,
-      child: OutlinedButton(
-          onPressed: _login,
-          style: OutlinedButton.styleFrom(
-              textStyle: const TextStyle(fontSize: 18),
-              primary: Colors.black,
-              side: const BorderSide(color: Colors.black),
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8)))),
-          child: widget.props.canSignUp
-              ? const Text('Sign In')
-              : const Text('Sign Up')),
-    );
+  _loginButton() {
+    return widget.props.isLoginInProgress
+        ? const CircularProgressIndicator()
+        : SizedBox(
+            width: double.infinity,
+            height: 60,
+            child: OutlinedButton(
+                onPressed: _login,
+                style: OutlinedButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 18),
+                    primary: Colors.black,
+                    side: const BorderSide(color: Colors.black),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)))),
+                child: widget.props.canSignUp
+                    ? const Text('Sign In')
+                    : const Text('Sign Up')),
+          );
   }
 
   _signUpButton() {
-    return props.canSignUp
+    return widget.props.canSignUp
         ? SizedBox(
             height: 60,
             child: TextButton(

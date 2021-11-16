@@ -11,11 +11,17 @@ final signInMiddleware = (
   SignInAction action,
   NextDispatcher next,
 ) {
+  next(action);
+
+  if (store.state.user.loginInProgress) {
+    return;
+  }
+
+  next(PrecessingLoginAction());
+
   LoginService(Dio())
       .signin(action.email, action.password)
       .then((user) => next(DidLoginAction(user: user)))
       .onError((error, stackTrace) =>
           next(DidFailLoginAction(error: (error as DioError))));
-
-  next(action);
 };
