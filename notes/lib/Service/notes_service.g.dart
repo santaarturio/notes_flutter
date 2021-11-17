@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_service.dart';
+part of 'notes_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-class _LoginService implements LoginService {
-  _LoginService(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://notes-1ed6c.web.app/api/users';
+class _NotesService implements NotesService {
+  _NotesService(this._dio, {this.baseUrl}) {
+    baseUrl ??= 'https://notes-1ed6c.web.app/api';
   }
 
   final Dio _dio;
@@ -16,34 +16,34 @@ class _LoginService implements LoginService {
   String? baseUrl;
 
   @override
-  Future<User> signup(name, email, password) async {
+  Future<List<Note>> notes() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = {'name': name, 'email': email, 'password': password};
-    _data.removeWhere((k, v) => v == null);
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<User>(
-        Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/signup',
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(_setStreamType<List<Note>>(
+        Options(method: 'GET', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/notes',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = User.fromJson(_result.data!);
+    var value = _result.data!
+        .map((dynamic i) => Note.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
   @override
-  Future<User> signin(email, password) async {
+  Future<Note> createNote(title, subtitle) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = {'email': email, 'password': password};
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<User>(
-        Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/signin',
+    final _data = {'title': title, 'subtitle': subtitle};
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<Note>(
+        Options(method: 'PUT', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/notes',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = User.fromJson(_result.data!);
+    final value = Note.fromJson(_result.data!);
     return value;
   }
 
