@@ -5,7 +5,7 @@ class SignInAction {
   final String email;
   final String password;
 
-  SignInAction(this.email, this.password);
+  SignInAction({required this.email, required this.password});
 }
 
 class SignUpAction {
@@ -13,7 +13,7 @@ class SignUpAction {
   final String email;
   final String password;
 
-  SignUpAction(this.name, this.email, this.password);
+  SignUpAction({this.name, required this.email, required this.password});
 }
 
 // Progress
