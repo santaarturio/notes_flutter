@@ -9,12 +9,10 @@ abstract class LoginService {
   factory LoginService(Dio dio, {String baseUrl}) = _LoginService;
 
   @POST("/signup")
-  @FormUrlEncoded()
   Future<User> signup(@Field("name") String? name, @Field("email") String email,
       @Field("password") String password);
 
   @POST("/signin")
-  @FormUrlEncoded()
   Future<User> signin(
       @Field("email") String email, @Field("password") String password);
 }

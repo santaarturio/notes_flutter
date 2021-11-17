@@ -11,8 +11,12 @@ part 'notes_state.g.dart';
 class NotesState extends Equatable {
   final List<Note> list;
   final bool isDownloading;
+  final bool isCreating;
 
-  const NotesState({required this.list, this.isDownloading = false});
+  const NotesState(
+      {required this.list,
+      this.isDownloading = false,
+      this.isCreating = false});
 
   @override
   List<Object?> get props => [list];
@@ -31,6 +35,17 @@ extension NotesStateReducer on NotesState {
 
       case DidFailReloadNotesAction:
         return state.copyWith(isDownloading: false);
+
+      case CreatingNoteAction:
+        return state.copyWith(isCreating: true);
+
+      case DidCreateNoteAction:
+        final list = state.list;
+        list.insert(0, action.note);
+        return state.copyWith(list: list, isCreating: false);
+
+      case DidFailCreateNoteAction:
+        return state.copyWith(isCreating: false);
 
       default:
         return state;
