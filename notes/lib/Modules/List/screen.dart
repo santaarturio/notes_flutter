@@ -30,7 +30,7 @@ class _NotesScreenState extends State<NotesScreen> {
             foregroundColor: Colors.amber,
             leading: _logoutButton(),
             actions: [_createButton()]),
-        body: _listView());
+        body: widget.props.isDownloading ? _progressView() : _listView());
   }
 
   _logoutButton() {
@@ -58,6 +58,10 @@ class _NotesScreenState extends State<NotesScreen> {
             size: 26.0,
           ),
         ));
+  }
+
+  _progressView() {
+    return const Center(child: CircularProgressIndicator());
   }
 
   _listView() {
