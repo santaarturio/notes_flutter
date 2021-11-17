@@ -33,7 +33,7 @@ extension UserStateReducer on UserState {
         return state.copyWith(loginInProgress: false);
 
       case LogOutAction:
-        return state.copyWithNull();
+        return state.copyWithNull(me: true);
 
       default:
         return state;
