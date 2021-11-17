@@ -12,14 +12,12 @@ class NotesConnector extends StatelessWidget {
     store.dispatch(ReloadNotesAction());
   }
 
-  void logout() {
-    store.dispatch(LogOutAction());
-  }
-
   @override
   Widget build(BuildContext context) => StoreConnector<AppState, NotesProps>(
       distinct: true,
       converter: (Store<AppState> store) => NotesProps(
-          store.state.notes.list, store.state.notes.isDownloading, logout),
+          notes: store.state.notes.list,
+          isDownloading: store.state.notes.isDownloading,
+          logout: () => store.dispatch(LogOutAction())),
       builder: (context, props) => NotesScreen(props: props));
 }

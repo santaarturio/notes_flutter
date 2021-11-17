@@ -6,7 +6,8 @@ class NotesProps {
   final bool isDownloading;
   final void Function() logout;
 
-  NotesProps(this.notes, this.isDownloading, this.logout);
+  NotesProps(
+      {required this.notes, required this.isDownloading, required this.logout});
 }
 
 class NotesScreen extends StatefulWidget {
@@ -35,29 +36,17 @@ class _NotesScreenState extends State<NotesScreen> {
 
   _logoutButton() {
     return GestureDetector(
-      onTap: () {
-        widget.props.logout();
-      },
-      child: const Icon(
-        Icons.logout,
-        size: 26.0,
-      ),
-    );
+        onTap: () => widget.props.logout(),
+        child: const Icon(Icons.logout, size: 26.0));
   }
 
   _createButton() {
     return Padding(
         padding: const EdgeInsets.only(right: 20.0),
         child: GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const Text('create new note')));
-          },
-          child: const Icon(
-            Icons.create,
-            size: 26.0,
-          ),
-        ));
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const Text('create new note'))),
+            child: const Icon(Icons.create, size: 26.0)));
   }
 
   _progressView() {
@@ -68,18 +57,14 @@ class _NotesScreenState extends State<NotesScreen> {
     return ListView.separated(
         padding: const EdgeInsets.only(top: 8, bottom: 48),
         itemCount: widget.props.notes.length,
-        separatorBuilder: (BuildContext context, int index) {
-          return const Divider(indent: 8);
-        },
+        separatorBuilder: (BuildContext context, int index) =>
+            const Divider(indent: 8),
         itemBuilder: (BuildContext context, int index) {
           final note = widget.props.notes[index];
 
           return GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>
-                      Text('note with title: ${note.title}')));
-            },
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Text('note with title: ${note.title}'))),
             child: Container(
               color: Colors.white,
               width: double.infinity,

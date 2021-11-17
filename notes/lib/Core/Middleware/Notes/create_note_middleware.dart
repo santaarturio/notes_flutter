@@ -23,7 +23,7 @@ final createNoteMiddleware = (
   NotesService(NotesService.dio(
           jwt: store.state.user.me?.jwt, validateStatus: Validator401.validate))
       .createNote(action.title, action.subtitle)
-      .then((note) => next(DidCreateNoteAction(note)))
+      .then((note) => next(DidCreateNoteAction(note: note)))
       .onError((error, stackTrace) =>
           next(DidFailCreateNoteAction(error: error as DioError)));
 };

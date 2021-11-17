@@ -27,7 +27,7 @@ class CreateNoteAction {
   final String title;
   final String subtitle;
 
-  CreateNoteAction(this.title, this.subtitle);
+  CreateNoteAction({required this.title, required this.subtitle});
 }
 
 // Progress
@@ -37,7 +37,7 @@ class CreatingNoteAction {}
 class DidCreateNoteAction {
   final Note note;
 
-  DidCreateNoteAction(this.note);
+  DidCreateNoteAction({required this.note});
 }
 
 // Did Fail Reload
