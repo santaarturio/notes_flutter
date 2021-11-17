@@ -10,7 +10,10 @@ class LoginProps {
   final bool canSignUp;
   final void Function(String? name, String email, String password) login;
 
-  LoginProps(this.isLoginInProgress, this.canSignUp, this.login);
+  LoginProps(
+      {required this.isLoginInProgress,
+      required this.canSignUp,
+      required this.login});
 }
 
 // MARK: - Screen
@@ -25,14 +28,16 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  String _name = "";
-  String _email = "";
-  String _password = "";
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   void _login() {
-    final bool isValid = _formKey.currentState!.validate();
-    if (isValid) {
-      widget.props.login(_name, _email, _password);
+    final bool? isValid = _formKey.currentState?.validate();
+
+    if (isValid ?? false) {
+      widget.props.login(_nameController.text, _emailController.text,
+          _passwordController.text);
 
       if (Navigator.canPop(context)) {
         Navigator.of(context).pop();
@@ -68,59 +73,44 @@ class _LoginScreenState extends State<LoginScreen> {
               ))),
       floatingActionButton: widget.props.canSignUp
           ? Container()
-          : BackButton(onPressed: () {
-              Navigator.of(context).pop();
-            }),
+          : BackButton(onPressed: () => Navigator.of(context).pop()),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
     );
   }
 
   _logo() {
-    return Flexible(
-      child: Image.asset(
-        'images/main-logo-any.png',
-        width: 150,
-      ),
-    );
+    return Flexible(child: Image.asset('images/main-logo-any.png', width: 150));
   }
 
   _nameTextFormField() {
     return widget.props.canSignUp
         ? const SizedBox()
-        : _textFormField((name) {
-            _name = name;
-          }, (value) {
-            return null;
-          }, 'Enter Your Name');
+        : _textFormField((_) => null, _nameController, 'Enter Your Name');
   }
 
   _emailTextFormField() {
-    return _textFormField((email) {
-      _email = email;
-    }, (value) {
+    return _textFormField((value) {
       return (value ?? "").trim().length < 5
           ? 'This field requires a minimum of 5 characters'
           : null;
-    }, 'Enter Your Email');
+    }, _emailController, 'Enter Your Email');
   }
 
   _passwordTextFormField() {
-    return _textFormField((password) {
-      _password = password;
-    }, (value) {
+    return _textFormField((value) {
       return (value ?? "").trim().length < 8
           ? 'This field requires a minimum of 8 characters'
           : null;
-    }, 'Enter Your Password', obscureText: true);
+    }, _passwordController, 'Enter Your Password', obscureText: true);
   }
 
-  _textFormField(Function(String) onChanged,
-      String? Function(String?) validator, String labelText,
+  _textFormField(String? Function(String?) validator,
+      TextEditingController controller, String labelText,
       {bool obscureText = false}) {
     return TextFormField(
-      obscureText: obscureText,
-      onChanged: onChanged,
       validator: validator,
+      controller: controller,
+      obscureText: obscureText,
       decoration: InputDecoration(
           labelText: labelText,
           border: const OutlineInputBorder(
@@ -157,16 +147,12 @@ class _LoginScreenState extends State<LoginScreen> {
         ? SizedBox(
             height: 60,
             child: TextButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const SignUpConnector()));
-              },
-              style: TextButton.styleFrom(
-                textStyle: const TextStyle(fontSize: 18),
-                primary: Colors.black,
-              ),
-              child: const Text('Sign Up'),
-            ),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SignUpConnector())),
+                style: TextButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 18),
+                    primary: Colors.black),
+                child: const Text('Sign Up')),
           )
         : Container();
   }
