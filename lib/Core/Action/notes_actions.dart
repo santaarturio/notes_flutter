@@ -1,5 +1,7 @@
 import 'package:notes/Model/note.dart';
 
+import 'error_action.dart';
+
 // MARK: - Reload
 // Trigger
 class ReloadNotesAction {}
@@ -15,8 +17,9 @@ class DidReloadNotesAction {
 }
 
 // Did Fail Reload
-class DidFailReloadNotesAction {
-  final Exception error;
+class DidFailReloadNotesAction implements ErrorAction {
+  @override
+  Exception error;
 
   DidFailReloadNotesAction({required this.error});
 }
@@ -41,8 +44,9 @@ class DidCreateNoteAction {
 }
 
 // Did Fail Reload
-class DidFailCreateNoteAction {
-  final Exception error;
+class DidFailCreateNoteAction implements ErrorAction {
+  @override
+  Exception error;
 
   DidFailCreateNoteAction({required this.error});
 }

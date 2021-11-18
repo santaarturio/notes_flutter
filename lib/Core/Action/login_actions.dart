@@ -1,3 +1,4 @@
+import 'package:notes/Core/Action/error_action.dart';
 import 'package:notes/Model/user.dart';
 
 // Trigger
@@ -27,8 +28,9 @@ class DidLoginAction {
 }
 
 // Did Fail Login
-class DidFailLoginAction {
-  final Exception error;
+class DidFailLoginAction implements ErrorAction {
+  @override
+  Exception error;
 
   DidFailLoginAction({required this.error});
 }

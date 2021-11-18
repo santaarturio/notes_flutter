@@ -2,6 +2,7 @@ import 'package:notes/Core/Middleware/Notes/create_note_middleware.dart';
 import 'package:notes/Core/Middleware/Notes/reload_notes_middleware.dart';
 import 'package:notes/Core/Middleware/Login/sign_in_middleware.dart';
 import 'package:notes/Core/Middleware/Login/sign_up_middleware.dart';
+import 'package:notes/Core/Middleware/error401_middleware.dart';
 import 'package:notes/Core/State/app_state.dart';
 import 'package:redux/redux.dart';
 import 'logger_middleware.dart';
@@ -12,6 +13,7 @@ class AppMiddleware {
     TypedMiddleware(signUpMiddleware),
     TypedMiddleware(reloadNotesMiddleware),
     TypedMiddleware(createNoteMiddleware),
+    TypedMiddleware(error401Middleware),
     loggerMiddleware, // loggerMiddleware should always be last in the chain
   ];
 }
