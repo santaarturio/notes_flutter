@@ -2,7 +2,6 @@
 
 import 'package:notes/Core/Action/notes_actions.dart';
 import 'package:notes/Core/State/app_state.dart';
-import 'package:notes/Service/Plugins/401_validator.dart';
 import 'package:notes/Service/notes_api.dart';
 import 'package:redux/redux.dart';
 import 'package:dio/dio.dart';
@@ -20,9 +19,8 @@ final reloadNotesMiddleware = (
 
   next(ReloadingNotesAction());
 
-  NotesService(NotesService.dio(
-          jwt: store.state.user.me?.jwt, validateStatus: Validator401.validate))
-      .notes()
+  NotesService(Dio())
+      .notes('Bearer ${store.state.user.me?.jwt ?? ''}')
       .then((notes) => next(DidReloadNotesAction(notes: notes)))
       .onError((error, stackTrace) =>
           next(DidFailReloadNotesAction(error: error as DioError)));

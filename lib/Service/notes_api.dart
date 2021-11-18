@@ -8,16 +8,10 @@ part '../Misc/notes_api.g.dart';
 abstract class NotesService {
   factory NotesService(Dio dio, {String baseUrl}) = _NotesService;
 
-  static Dio dio({String? jwt, bool Function(int?)? validateStatus}) {
-    return Dio(BaseOptions(
-        headers: {"Authorization": "Bearer ${jwt ?? ''}"},
-        validateStatus: validateStatus));
-  }
-
   @GET("/notes")
-  Future<List<Note>> notes();
+  Future<List<Note>> notes(@Header('Authorization') String bearer);
 
   @PUT("/notes")
-  Future<Note> createNote(
+  Future<Note> createNote(@Header('Authorization') String bearer,
       @Field("title") String title, @Field("subtitle") String subtitle);
 }

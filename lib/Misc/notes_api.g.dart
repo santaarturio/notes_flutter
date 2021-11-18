@@ -16,10 +16,11 @@ class _NotesService implements NotesService {
   String? baseUrl;
 
   @override
-  Future<List<Note>> notes() async {
+  Future<List<Note>> notes(bearer) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': bearer};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(_setStreamType<List<Note>>(
         Options(method: 'GET', headers: _headers, extra: _extra)
@@ -33,10 +34,11 @@ class _NotesService implements NotesService {
   }
 
   @override
-  Future<Note> createNote(title, subtitle) async {
+  Future<Note> createNote(bearer, title, subtitle) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': bearer};
+    _headers.removeWhere((k, v) => v == null);
     final _data = {'title': title, 'subtitle': subtitle};
     final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<Note>(
         Options(method: 'PUT', headers: _headers, extra: _extra)
