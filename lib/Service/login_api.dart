@@ -2,7 +2,7 @@ import 'package:notes/Model/user.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
-part '../Misc/login_api.g.dart';
+part '../Misc/Generated/login_api.g.dart';
 
 @RestApi(baseUrl: 'https://notes-1ed6c.web.app/api/users')
 abstract class LoginService {

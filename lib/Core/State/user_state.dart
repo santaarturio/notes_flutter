@@ -1,11 +1,12 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_function_declarations_over_variables
 
 import 'package:equatable/equatable.dart';
 import 'package:notes/Core/Action/login_actions.dart';
 import 'package:notes/Model/user.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:redux/redux.dart';
 
-part 'user_state.g.dart';
+part '../../Misc/Generated/user_state.g.dart';
 
 @CopyWith(generateCopyWithNull: true)
 class UserState extends Equatable {
@@ -21,22 +22,24 @@ class UserState extends Equatable {
 }
 
 extension UserStateReducer on UserState {
-  static UserState reduce(UserState state, action) {
-    switch (action.runtimeType) {
-      case PrecessingLoginAction:
-        return state.copyWith(loginInProgress: true);
+  static final Reducer<UserState> reduce = combineReducers([
+    TypedReducer(processingLoginReducer),
+    TypedReducer(didLoginReducer),
+    TypedReducer(didFailLoginReducer),
+    TypedReducer(logoutReducer)
+  ]);
 
-      case DidLoginAction:
-        return state.copyWith(me: action.user, loginInProgress: false);
+  static final processingLoginReducer =
+      (UserState state, PrecessingLoginAction action) =>
+          state.copyWith(loginInProgress: true);
 
-      case DidFailLoginAction:
-        return state.copyWith(loginInProgress: false);
+  static final didLoginReducer = (UserState state, DidLoginAction action) =>
+      state.copyWith(me: action.user, loginInProgress: false);
 
-      case LogOutAction:
-        return state.copyWithNull(me: true);
+  static final didFailLoginReducer =
+      (UserState state, DidFailLoginAction action) =>
+          state.copyWith(loginInProgress: false);
 
-      default:
-        return state;
-    }
-  }
+  static final logoutReducer =
+      (UserState state, LogOutAction action) => state.copyWithNull(me: true);
 }

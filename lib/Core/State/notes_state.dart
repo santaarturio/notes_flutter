@@ -1,11 +1,12 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_function_declarations_over_variables
 
 import 'package:equatable/equatable.dart';
 import 'package:notes/Core/Action/notes_actions.dart';
 import 'package:notes/Model/note.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:redux/redux.dart';
 
-part 'notes_state.g.dart';
+part '../../Misc/Generated/notes_state.g.dart';
 
 @CopyWith()
 class NotesState extends Equatable {
@@ -25,30 +26,39 @@ class NotesState extends Equatable {
 }
 
 extension NotesStateReducer on NotesState {
-  static NotesState reduce(NotesState state, action) {
-    switch (action.runtimeType) {
-      case ReloadingNotesAction:
-        return state.copyWith(isDownloading: true);
+  static final Reducer<NotesState> reduce = combineReducers([
+    TypedReducer(reloadingNotesReducer),
+    TypedReducer(didReloadNotesReducer),
+    TypedReducer(didFailReloadNotesReducer),
+    TypedReducer(creatingNotesReducer),
+    TypedReducer(didCreateNotesReducer),
+    TypedReducer(didFailCreateNotesReducer)
+  ]);
 
-      case DidReloadNotesAction:
-        return state.copyWith(list: action.notes, isDownloading: false);
+  static final reloadingNotesReducer =
+      (NotesState state, ReloadingNotesAction action) =>
+          state.copyWith(isDownloading: true);
 
-      case DidFailReloadNotesAction:
-        return state.copyWith(isDownloading: false);
+  static final didReloadNotesReducer =
+      (NotesState state, DidReloadNotesAction action) =>
+          state.copyWith(list: action.notes, isDownloading: false);
 
-      case CreatingNoteAction:
-        return state.copyWith(isCreating: true);
+  static final didFailReloadNotesReducer =
+      (NotesState state, DidFailReloadNotesAction action) =>
+          state.copyWith(isDownloading: false);
 
-      case DidCreateNoteAction:
-        final list = state.list;
-        list.insert(0, action.note);
-        return state.copyWith(list: list, isCreating: false);
+  static final creatingNotesReducer =
+      (NotesState state, CreatingNoteAction action) =>
+          state.copyWith(isCreating: true);
 
-      case DidFailCreateNoteAction:
-        return state.copyWith(isCreating: false);
+  static final didCreateNotesReducer =
+      (NotesState state, DidCreateNoteAction action) {
+    final list = state.list;
+    list.insert(0, action.note);
+    return state.copyWith(list: list, isCreating: false);
+  };
 
-      default:
-        return state;
-    }
-  }
+  static final didFailCreateNotesReducer =
+      (NotesState state, DidFailCreateNoteAction action) =>
+          state.copyWith(isCreating: false);
 }
