@@ -1,4 +1,4 @@
-import 'package:notes/Model/user_model.dart';
+import 'package:notes/Model/user.dart';
 
 // Trigger
 class SignInAction {

@@ -3,7 +3,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:notes/Core/Action/notes_actions.dart';
 import 'package:notes/Core/State/app_state.dart';
 import 'package:notes/Modules/Details/screen.dart';
-import 'package:redux/redux.dart';
 
 // ignore: must_be_immutable
 class CreateNoteConnector extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:notes/Model/note_model.dart';
+import 'package:notes/Model/note.dart';
 
 // MARK: - Reload
 // Trigger

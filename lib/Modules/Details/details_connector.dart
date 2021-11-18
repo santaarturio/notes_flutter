@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:notes/Core/State/app_state.dart';
-import 'package:notes/Model/note_model.dart';
+import 'package:notes/Model/note.dart';
 import 'package:notes/Modules/Details/screen.dart';
 
 class DetailsConnector extends StatelessWidget {

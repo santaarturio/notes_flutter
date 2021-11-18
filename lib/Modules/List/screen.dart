@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes/Model/note_model.dart';
+import 'package:notes/Model/note.dart';
 import 'package:notes/Modules/Details/create_connector.dart';
 import 'package:notes/Modules/Details/details_connector.dart';
 

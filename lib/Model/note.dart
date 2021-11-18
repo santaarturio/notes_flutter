@@ -3,7 +3,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'note_model.g.dart';
+part 'note.g.dart';
 
 @JsonSerializable()
 class Note extends Equatable {

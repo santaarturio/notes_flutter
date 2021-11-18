@@ -2,7 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:notes/Core/Action/notes_actions.dart';
-import 'package:notes/Model/note_model.dart';
+import 'package:notes/Model/note.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 
 part 'notes_state.g.dart';

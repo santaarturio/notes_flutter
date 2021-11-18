@@ -1,8 +1,8 @@
-import 'package:notes/Model/note_model.dart';
+import 'package:notes/Model/note.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
-part 'notes_service.g.dart';
+part 'notes_api.g.dart';
 
 @RestApi(baseUrl: 'https://notes-1ed6c.web.app/api')
 abstract class NotesService {

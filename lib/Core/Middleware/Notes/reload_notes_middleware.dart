@@ -3,7 +3,7 @@
 import 'package:notes/Core/Action/notes_actions.dart';
 import 'package:notes/Core/State/app_state.dart';
 import 'package:notes/Service/Plugins/401_validator.dart';
-import 'package:notes/Service/notes_service.dart';
+import 'package:notes/Service/notes_api.dart';
 import 'package:redux/redux.dart';
 import 'package:dio/dio.dart';
 

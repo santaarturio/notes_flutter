@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes/Model/note_model.dart';
+import 'package:notes/Model/note.dart';
 
 class DetailsProps {
   final Note? note;
