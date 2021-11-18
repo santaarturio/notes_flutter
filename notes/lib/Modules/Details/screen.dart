@@ -39,7 +39,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             centerTitle: true,
             backgroundColor: Colors.white,
             foregroundColor: Colors.amber,
-            leading: BackButton(onPressed: () => widget.props.back()),
+            leading: BackButton(onPressed: widget.props.back),
             actions: [_doneButton()]),
         body: _body());
   }
