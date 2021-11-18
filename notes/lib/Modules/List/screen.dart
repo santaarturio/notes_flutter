@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes/Model/note_model.dart';
+import 'package:notes/Modules/Details/create_connector.dart';
+import 'package:notes/Modules/Details/details_connector.dart';
 
 class NotesProps {
   final List<Note> notes;
@@ -44,8 +46,8 @@ class _NotesScreenState extends State<NotesScreen> {
     return Padding(
         padding: const EdgeInsets.only(right: 20.0),
         child: GestureDetector(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const Text('create new note'))),
+            onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => CreateNoteConnector())),
             child: const Icon(Icons.create, size: 26.0)));
   }
 
@@ -64,7 +66,7 @@ class _NotesScreenState extends State<NotesScreen> {
 
           return GestureDetector(
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Text('note with title: ${note.title}'))),
+                builder: (context) => DetailsConnector(note: note))),
             child: Container(
               color: Colors.white,
               width: double.infinity,
