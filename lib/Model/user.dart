@@ -3,7 +3,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'user.g.dart';
+part '../Misc/user.g.dart';
 
 @JsonSerializable()
 class User extends Equatable {
@@ -12,7 +12,8 @@ class User extends Equatable {
   final String email;
   final String? name;
 
-  const User({required this.id, required this.jwt, required this.email, this.name});
+  const User(
+      {required this.id, required this.jwt, required this.email, this.name});
 
   @override
   List<Object?> get props => [id];
