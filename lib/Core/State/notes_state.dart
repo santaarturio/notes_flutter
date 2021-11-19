@@ -6,7 +6,7 @@ import 'package:notes/Model/note.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:redux/redux.dart';
 
-part '../../Misc/Generated/notes_state.g.dart';
+part 'notes_state.g.dart';
 
 @CopyWith()
 class NotesState extends Equatable {

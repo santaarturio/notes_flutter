@@ -10,7 +10,7 @@ final reloadNotesMiddleware = (
   Store<AppState> store,
   ReloadNotesAction action,
   NextDispatcher next,
-) {
+) async {
   next(action);
 
   if (store.state.notes.isDownloading) {
@@ -19,9 +19,11 @@ final reloadNotesMiddleware = (
 
   next(ReloadingNotesAction());
 
-  NotesService(Dio())
-      .notes('Bearer ${store.state.user.me?.jwt ?? ''}')
-      .then((notes) => next(DidReloadNotesAction(notes: notes)))
-      .onError((error, stackTrace) =>
-          next(DidFailReloadNotesAction(error: error as DioError)));
+  try {
+    next(DidReloadNotesAction(
+        notes: await NotesAPI(Dio())
+            .notes('Bearer ${store.state.user.me?.jwt ?? ''}')));
+  } catch (error) {
+    next(DidFailReloadNotesAction(error: error as DioError));
+  }
 };

@@ -10,7 +10,7 @@ final createNoteMiddleware = (
   Store<AppState> store,
   CreateNoteAction action,
   NextDispatcher next,
-) {
+) async {
   next(action);
 
   if (store.state.notes.isCreating) {
@@ -19,10 +19,13 @@ final createNoteMiddleware = (
 
   next(CreatingNoteAction());
 
-  NotesService(Dio())
-      .createNote('Bearer ${store.state.user.me?.jwt ?? ''}', action.title,
-          action.subtitle)
-      .then((note) => next(DidCreateNoteAction(note: note)))
-      .onError((error, stackTrace) =>
-          next(DidFailCreateNoteAction(error: error as DioError)));
+  try {
+    next(DidCreateNoteAction(
+        note: await NotesAPI(Dio()).createNote(
+            'Bearer ${store.state.user.me?.jwt ?? ''}',
+            action.title,
+            action.subtitle)));
+  } catch (error) {
+    next(DidFailCreateNoteAction(error: error as DioError));
+  }
 };

@@ -6,7 +6,7 @@ import 'package:notes/Model/user.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:redux/redux.dart';
 
-part '../../Misc/Generated/user_state.g.dart';
+part 'user_state.g.dart';
 
 @CopyWith(generateCopyWithNull: true)
 class UserState extends Equatable {

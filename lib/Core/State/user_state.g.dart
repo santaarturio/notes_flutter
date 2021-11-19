@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../Core/State/user_state.dart';
+part of 'user_state.dart';
 
 // **************************************************************************
 // CopyWithGenerator

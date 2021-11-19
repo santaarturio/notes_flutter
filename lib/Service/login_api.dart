@@ -2,11 +2,11 @@ import 'package:notes/Model/user.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
-part '../Misc/Generated/login_api.g.dart';
+part 'login_api.g.dart';
 
 @RestApi(baseUrl: 'https://notes-1ed6c.web.app/api/users')
-abstract class LoginService {
-  factory LoginService(Dio dio, {String baseUrl}) = _LoginService;
+abstract class LoginAPI {
+  factory LoginAPI(Dio dio, {String baseUrl}) = _LoginAPI;
 
   @POST("/signup")
   Future<User> signup(@Field("name") String? name, @Field("email") String email,

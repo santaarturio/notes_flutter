@@ -10,7 +10,7 @@ final signUpMiddleware = (
   Store<AppState> store,
   SignUpAction action,
   NextDispatcher next,
-) {
+) async {
   next(action);
 
   if (store.state.user.loginInProgress) {
@@ -19,9 +19,11 @@ final signUpMiddleware = (
 
   next(PrecessingLoginAction());
 
-  LoginService(Dio())
-      .signup(action.name, action.email, action.password)
-      .then((user) => next(DidLoginAction(user: user)))
-      .onError((error, stackTrace) =>
-          next(DidFailLoginAction(error: (error as DioError))));
+  try {
+    next(DidLoginAction(
+        user: await LoginAPI(Dio())
+            .signup(action.name, action.email, action.password)));
+  } catch (error) {
+    next(DidFailLoginAction(error: (error as DioError)));
+  }
 };

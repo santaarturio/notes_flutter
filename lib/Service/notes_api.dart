@@ -2,11 +2,11 @@ import 'package:notes/Model/note.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
-part '../Misc/Generated/notes_api.g.dart';
+part 'notes_api.g.dart';
 
 @RestApi(baseUrl: 'https://notes-1ed6c.web.app/api')
-abstract class NotesService {
-  factory NotesService(Dio dio, {String baseUrl}) = _NotesService;
+abstract class NotesAPI {
+  factory NotesAPI(Dio dio, {String baseUrl}) = _NotesAPI;
 
   @GET("/notes")
   Future<List<Note>> notes(@Header('Authorization') String bearer);
