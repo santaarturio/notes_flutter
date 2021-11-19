@@ -2,16 +2,19 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/Modules/Login/sign_up_connector.dart';
 
 // MARK: - Props
 class LoginProps {
   final bool isLoginInProgress;
   final bool canSignUp;
+  final void Function() signUp;
+  final void Function() back;
   final void Function(String? name, String email, String password) login;
 
   LoginProps(
-      {required this.isLoginInProgress,
+      {required this.signUp,
+      required this.back,
+      required this.isLoginInProgress,
       required this.canSignUp,
       required this.login});
 }
@@ -73,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ))),
       floatingActionButton: widget.props.canSignUp
           ? Container()
-          : BackButton(onPressed: () => Navigator.of(context).pop()),
+          : BackButton(onPressed: widget.props.back),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
     );
   }
@@ -147,8 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ? SizedBox(
             height: 60,
             child: TextButton(
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const SignUpConnector())),
+                onPressed: widget.props.signUp,
                 style: TextButton.styleFrom(
                     textStyle: const TextStyle(fontSize: 18),
                     primary: Colors.black),

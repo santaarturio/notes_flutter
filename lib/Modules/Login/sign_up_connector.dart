@@ -12,6 +12,8 @@ class SignUpConnector extends StatelessWidget {
         converter: (store) => LoginProps(
             isLoginInProgress: store.state.user.loginInProgress,
             canSignUp: false,
+            signUp: () {},
+            back: Navigator.of(context).pop,
             login: (name, email, password) => store.dispatch(
                 SignUpAction(name: name, email: email, password: password))),
         builder: (context, props) => LoginScreen(props: props),

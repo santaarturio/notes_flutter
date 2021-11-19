@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:notes/Model/note.dart';
-import 'package:notes/Modules/Details/create_connector.dart';
-import 'package:notes/Modules/Details/details_connector.dart';
 
 class NotesProps {
   final List<Note> notes;
   final bool isDownloading;
   final void Function() logout;
+  final void Function(Note) details;
+  final void Function() create;
 
   NotesProps(
-      {required this.notes, required this.isDownloading, required this.logout});
+      {required this.notes,
+      required this.isDownloading,
+      required this.details,
+      required this.create,
+      required this.logout});
 }
 
 class NotesScreen extends StatefulWidget {
@@ -46,8 +50,7 @@ class _NotesScreenState extends State<NotesScreen> {
     return Padding(
         padding: const EdgeInsets.only(right: 20.0),
         child: GestureDetector(
-            onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => CreateNoteConnector())),
+            onTap: widget.props.create,
             child: const Icon(Icons.create, size: 26.0)));
   }
 
@@ -65,8 +68,7 @@ class _NotesScreenState extends State<NotesScreen> {
           final note = widget.props.notes[index];
 
           return GestureDetector(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => DetailsConnector(note: note))),
+            onTap: () => widget.props.details(note),
             child: Container(
               color: Colors.white,
               width: double.infinity,
