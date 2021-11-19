@@ -42,7 +42,7 @@ class _NotesScreenState extends State<NotesScreen> {
 
   _logoutButton() {
     return GestureDetector(
-        onTap: () => widget.props.logout(),
+        onTap: widget.props.logout,
         child: const Icon(Icons.logout, size: 26.0));
   }
 

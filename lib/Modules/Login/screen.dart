@@ -74,9 +74,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ))),
-      floatingActionButton: widget.props.canSignUp
-          ? Container()
-          : BackButton(onPressed: widget.props.back),
+      floatingActionButton: Visibility(
+          visible: widget.props.canSignUp == false,
+          child: BackButton(onPressed: widget.props.back)),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
     );
   }
@@ -86,9 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _nameTextFormField() {
-    return widget.props.canSignUp
-        ? const SizedBox()
-        : _textFormField((_) => null, _nameController, 'Enter Your Name');
+    return Visibility(
+        visible: widget.props.canSignUp == false,
+        child: _textFormField((_) => null, _nameController, 'Enter Your Name'));
   }
 
   _emailTextFormField() {
@@ -132,30 +132,28 @@ class _LoginScreenState extends State<LoginScreen> {
             width: double.infinity,
             height: 60,
             child: OutlinedButton(
-                onPressed: _login,
-                style: OutlinedButton.styleFrom(
-                    textStyle: const TextStyle(fontSize: 18),
-                    primary: Colors.black,
-                    side: const BorderSide(color: Colors.black),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)))),
-                child: widget.props.canSignUp
-                    ? const Text('Sign In')
-                    : const Text('Sign Up')),
-          );
+              onPressed: _login,
+              style: OutlinedButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 18),
+                  primary: Colors.black,
+                  side: const BorderSide(color: Colors.black),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8)))),
+              child: Text(widget.props.canSignUp ? 'Sign In' : 'Sign Up'),
+            ));
   }
 
   _signUpButton() {
-    return widget.props.canSignUp
-        ? SizedBox(
-            height: 60,
-            child: TextButton(
-                onPressed: widget.props.signUp,
-                style: TextButton.styleFrom(
-                    textStyle: const TextStyle(fontSize: 18),
-                    primary: Colors.black),
-                child: const Text('Sign Up')),
-          )
-        : Container();
+    return Visibility(
+        visible: widget.props.canSignUp,
+        child: SizedBox(
+          height: 60,
+          child: TextButton(
+              onPressed: widget.props.signUp,
+              style: TextButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 18),
+                  primary: Colors.black),
+              child: const Text('Sign Up')),
+        ));
   }
 }
