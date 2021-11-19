@@ -3,7 +3,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part '../Misc/user.g.dart';
+part '../Misc/Generated/user.g.dart';
 
 @JsonSerializable()
 class User extends Equatable {

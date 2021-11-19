@@ -3,6 +3,7 @@
 import 'package:notes/Core/Action/error_action.dart';
 import 'package:notes/Core/Action/login_actions.dart';
 import 'package:notes/Core/State/app_state.dart';
+import 'package:notes/Misc/cast.dart';
 import 'package:redux/redux.dart';
 import 'package:dio/dio.dart';
 
@@ -13,10 +14,7 @@ final error401Middleware = (
 ) {
   next(action);
 
-  switch (action.error.runtimeType) {
-    case DioError:
-      if ((action.error as DioError).response?.statusCode == 401) {
-        next(LogOutAction());
-      }
+  if (cast<DioError>(action.error)?.response?.statusCode == 401) {
+    next(LogOutAction());
   }
 };
