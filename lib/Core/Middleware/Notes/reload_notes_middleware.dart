@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_function_declarations_over_variables
 
+import 'package:get_it/get_it.dart';
 import 'package:notes/Core/Action/notes_actions.dart';
 import 'package:notes/Core/State/app_state.dart';
 import 'package:notes/Service/notes_api.dart';
@@ -21,7 +22,7 @@ final reloadNotesMiddleware = (
 
   try {
     next(DidReloadNotesAction(
-        notes: await NotesAPI(Dio())
+        notes: await GetIt.instance<NotesAPI>()
             .notes('Bearer ${store.state.user.me?.jwt ?? ''}')));
   } catch (error) {
     next(DidFailReloadNotesAction(error: error as DioError));

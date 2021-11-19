@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_function_declarations_over_variables
 
+import 'package:get_it/get_it.dart';
 import 'package:notes/Core/Action/notes_actions.dart';
 import 'package:notes/Core/State/app_state.dart';
 import 'package:notes/Service/notes_api.dart';
@@ -21,7 +22,7 @@ final createNoteMiddleware = (
 
   try {
     next(DidCreateNoteAction(
-        note: await NotesAPI(Dio()).createNote(
+        note: await GetIt.instance<NotesAPI>().createNote(
             'Bearer ${store.state.user.me?.jwt ?? ''}',
             action.title,
             action.subtitle)));

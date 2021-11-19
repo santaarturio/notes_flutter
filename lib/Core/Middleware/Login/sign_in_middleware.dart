@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_function_declarations_over_variables
 
+import 'package:get_it/get_it.dart';
 import 'package:notes/Core/Action/login_actions.dart';
 import 'package:notes/Core/State/app_state.dart';
 import 'package:notes/Service/login_api.dart';
@@ -21,7 +22,8 @@ final signInMiddleware = (
 
   try {
     next(DidLoginAction(
-        user: await LoginAPI(Dio()).signin(action.email, action.password)));
+        user: await GetIt.instance<LoginAPI>()
+            .signin(action.email, action.password)));
   } catch (error) {
     next(DidFailLoginAction(error: (error as DioError)));
   }
