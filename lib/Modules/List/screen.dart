@@ -63,38 +63,22 @@ class _NotesScreenState extends State<NotesScreen> {
         padding: const EdgeInsets.only(top: 8, bottom: 48),
         itemCount: widget.props.notes.length,
         separatorBuilder: (BuildContext context, int index) =>
-            const Divider(indent: 8),
+            const Divider(indent: 1),
         itemBuilder: (BuildContext context, int index) {
           final note = widget.props.notes[index];
 
-          return GestureDetector(
-            onTap: () => widget.props.details(note),
-            child: Container(
-              color: Colors.white,
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      note.title,
-                      maxLines: 1,
-                      style: const TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.w400),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      note.subtitle,
-                      maxLines: 2,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.w300),
-                    )
-                  ],
-                ),
+          return ListTile(
+              onTap: () => widget.props.details(note),
+              title: Text(
+                note.title,
+                maxLines: 1,
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
               ),
-            ),
-          );
+              subtitle: Text(note.subtitle,
+                  maxLines: 2,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w300)));
         });
   }
 }
