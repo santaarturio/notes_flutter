@@ -1,0 +1,52 @@
+name: notes
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  redux: ^5.0.0
+  flutter_redux: ^0.8.2
+  equatable: ^2.0.3
+  copy_with_extension: ^2.0.2
+  retrofit: ^2.2.0
+  json_annotation: ^4.3.0
+  get_it: ^7.2.0
+
+dev_dependencies:
+  retrofit_generator: ^2.2.0
+  build_runner: ^2.0.0
+  copy_with_extension_gen: ^2.0.3
+  json_serializable: ^6.0.1
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/main-logo-any.png
+    - assets/images/main-logo-dark.png
+
+  fonts:
+    - family: Noto_Sans
+      fonts:
+        - asset: assets/fonts/Noto_Sans/NotoSans-Regular.ttf
+        - asset: assets/fonts/Noto_Sans/NotoSans-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Noto_Sans/NotoSans-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Noto_Sans/NotoSans-BoldItalic.ttf
+          style: italic
+          weight: 700
+      
