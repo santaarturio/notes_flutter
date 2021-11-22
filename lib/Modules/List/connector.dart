@@ -19,8 +19,8 @@ class NotesConnector extends StatelessWidget {
       converter: (Store<AppState> store) => NotesProps(
           notes: store.state.notes.list,
           isDownloading: store.state.notes.isDownloading,
-          create: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => CreateNoteConnector())),
+          create: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const CreateNoteConnector())),
           details: (note) => Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => DetailsConnector(note: note))),
           logout: () => store.dispatch(LogOutAction())),

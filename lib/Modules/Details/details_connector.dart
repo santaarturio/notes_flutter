@@ -13,9 +13,10 @@ class DetailsConnector extends StatelessWidget {
   Widget build(BuildContext context) => StoreConnector<AppState, DetailsProps>(
       distinct: true,
       converter: (store) => DetailsProps(
-          note: note,
-          create: (title, subtitle) {},
-          back: Navigator.of(context).pop,
-          isDownloading: false),
+            note: note,
+            create: (title, subtitle) {},
+            back: Navigator.of(context).pop,
+            isDownloading: false,
+          ),
       builder: (context, props) => DetailsScreen(props: props));
 }

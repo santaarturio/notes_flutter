@@ -75,7 +75,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   _TextFormField(
                     controller: _subtitleController,
                     controllerText:
-                        widget.props.note?.subtitle ?? _titleController.text,
+                        widget.props.note?.subtitle ?? _subtitleController.text,
                     hintText: 'Enter Subtitle',
                     enabled: widget.props.note == null,
                     isTitle: false,

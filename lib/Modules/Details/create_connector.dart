@@ -6,26 +6,22 @@ import 'package:notes/Modules/Details/screen.dart';
 
 // ignore: must_be_immutable
 class CreateNoteConnector extends StatelessWidget {
-  CreateNoteConnector({Key? key}) : super(key: key);
-
-  var _isCreating = false;
+  const CreateNoteConnector({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => StoreConnector<AppState, DetailsProps>(
       distinct: true,
-      converter: (store) {
-        if (_isCreating == true && store.state.notes.isCreating == false) {
-          Navigator.of(context).pop();
-        }
-
-        _isCreating = store.state.notes.isCreating;
-
-        return DetailsProps(
+      converter: (store) => DetailsProps(
             note: null,
             create: (title, subtitle) => store
                 .dispatch(CreateNoteAction(title: title, subtitle: subtitle)),
             back: Navigator.of(context).pop,
-            isDownloading: store.state.notes.isCreating);
+            isDownloading: store.state.notes.isCreating,
+          ),
+      onWillChange: (previous, current) {
+        if (previous?.isDownloading == true && current.isDownloading == false) {
+          Navigator.of(context).pop();
+        }
       },
       builder: (context, props) => DetailsScreen(props: props));
 }
