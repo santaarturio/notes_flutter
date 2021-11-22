@@ -17,12 +17,58 @@ class NotesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreProvider(
-      store: Store<AppState>(AppStateReducer.reduce,
-          initialState: AppState.defaultValue,
-          middleware: AppMiddleware.middleware),
-      child: const MaterialApp(
+      store: Store<AppState>(
+        AppStateReducer.reduce,
+        initialState: AppState.defaultValue,
+        middleware: AppMiddleware.middleware,
+      ),
+      child: MaterialApp(
         title: 'Notes',
-        home: RootConnector(),
+        debugShowCheckedModeBanner: false,
+        home: const RootConnector(),
+        theme: ThemeData(
+          brightness: Brightness.light,
+          scaffoldBackgroundColor: Colors.white,
+          primaryColor: Colors.black,
+          hintColor: Colors.grey[800],
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.blue[700],
+          ),
+          textTheme: TextTheme(
+            headline1: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            ),
+            headline2: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w300,
+                color: Colors.grey[800]),
+            button: const TextStyle(fontSize: 18),
+          ),
+          fontFamily: 'Noto_Sans',
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          scaffoldBackgroundColor: Colors.black,
+          primaryColor: Colors.white,
+          hintColor: Colors.grey,
+          textTheme: TextTheme(
+            headline1: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+            headline2: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w300,
+              color: Colors.grey[200],
+            ),
+            button: const TextStyle(fontSize: 18),
+          ),
+          fontFamily: 'Noto_Sans',
+        ),
       ),
     );
   }

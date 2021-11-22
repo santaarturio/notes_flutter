@@ -10,27 +10,19 @@ import 'package:redux/redux.dart';
 
 // ignore: must_be_immutable
 class NotesConnector extends StatelessWidget {
-  NotesConnector({Key? key}) : super(key: key);
-
-  var _isInitial = true;
+  const NotesConnector({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => StoreConnector<AppState, NotesProps>(
       distinct: true,
-      converter: (Store<AppState> store) {
-        if (_isInitial) {
-          store.dispatch(ReloadNotesAction());
-          _isInitial = false;
-        }
-
-        return NotesProps(
-            notes: store.state.notes.list,
-            isDownloading: store.state.notes.isDownloading,
-            create: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => CreateNoteConnector())),
-            details: (note) => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => DetailsConnector(note: note))),
-            logout: () => store.dispatch(LogOutAction()));
-      },
+      onInit: (store) => store.dispatch(ReloadNotesAction()),
+      converter: (Store<AppState> store) => NotesProps(
+          notes: store.state.notes.list,
+          isDownloading: store.state.notes.isDownloading,
+          create: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => CreateNoteConnector())),
+          details: (note) => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => DetailsConnector(note: note))),
+          logout: () => store.dispatch(LogOutAction())),
       builder: (context, props) => NotesScreen(props: props));
 }

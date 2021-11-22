@@ -12,6 +12,6 @@ class RootConnector extends StatelessWidget {
         distinct: true,
         converter: (store) => store.state.user.me != null,
         builder: (context, isLoggedIn) =>
-            isLoggedIn ? NotesConnector() : const SignInConnector(),
+            isLoggedIn ? const NotesConnector() : const SignInConnector(),
       );
 }

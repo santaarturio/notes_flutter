@@ -8,12 +8,13 @@ class NotesProps {
   final void Function(Note) details;
   final void Function() create;
 
-  NotesProps(
-      {required this.notes,
-      required this.isDownloading,
-      required this.details,
-      required this.create,
-      required this.logout});
+  NotesProps({
+    required this.notes,
+    required this.isDownloading,
+    required this.details,
+    required this.create,
+    required this.logout,
+  });
 }
 
 class NotesScreen extends StatefulWidget {
@@ -29,56 +30,42 @@ class _NotesScreenState extends State<NotesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-            title: const Text('Notes', style: TextStyle(fontSize: 18)),
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.amber,
-            leading: _logoutButton(),
-            actions: [_createButton()]),
-        body: widget.props.isDownloading ? _progressView() : _listView());
-  }
+      appBar: AppBar(
+          title: const Text('Notes'),
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: widget.props.logout,
+            icon: const Icon(Icons.logout, size: 26.0),
+          ),
+          actions: [
+            IconButton(
+              onPressed: widget.props.create,
+              icon: const Icon(Icons.create, size: 26.0),
+            )
+          ]),
+      body: widget.props.isDownloading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.separated(
+              padding: const EdgeInsets.only(top: 8, bottom: 48),
+              itemCount: widget.props.notes.length,
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(indent: 8),
+              itemBuilder: (BuildContext context, int index) {
+                final note = widget.props.notes[index];
 
-  _logoutButton() {
-    return GestureDetector(
-        onTap: widget.props.logout,
-        child: const Icon(Icons.logout, size: 26.0));
-  }
-
-  _createButton() {
-    return Padding(
-        padding: const EdgeInsets.only(right: 20.0),
-        child: GestureDetector(
-            onTap: widget.props.create,
-            child: const Icon(Icons.create, size: 26.0)));
-  }
-
-  _progressView() {
-    return const Center(child: CircularProgressIndicator());
-  }
-
-  _listView() {
-    return ListView.separated(
-        padding: const EdgeInsets.only(top: 8, bottom: 48),
-        itemCount: widget.props.notes.length,
-        separatorBuilder: (BuildContext context, int index) =>
-            const Divider(indent: 1),
-        itemBuilder: (BuildContext context, int index) {
-          final note = widget.props.notes[index];
-
-          return ListTile(
-              onTap: () => widget.props.details(note),
-              title: Text(
-                note.title,
-                maxLines: 1,
-                style:
-                    const TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
-              ),
-              subtitle: Text(note.subtitle,
-                  maxLines: 2,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w300)));
-        });
+                return ListTile(
+                    onTap: () => widget.props.details(note),
+                    title: Text(
+                      note.title,
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                    subtitle: Text(
+                      note.subtitle,
+                      maxLines: 2,
+                      style: Theme.of(context).textTheme.headline2,
+                    ));
+              }),
+    );
   }
 }
