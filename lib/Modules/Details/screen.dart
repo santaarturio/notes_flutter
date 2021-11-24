@@ -40,51 +40,60 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-            title: Text(widget.props.note != null ? 'Details' : 'Create'),
-            centerTitle: true,
-            leading: BackButton(onPressed: widget.props.back),
-            actions: [
-              Visibility(
-                  visible: widget.props.note == null,
-                  child: IconButton(
-                    onPressed: _createNote,
-                    icon: const Icon(Icons.done, size: 26.0),
-                  ))
-            ]),
-        body: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-              child: Column(
-                children: [
-                  Visibility(
-                    visible: widget.props.isDownloading,
-                    child: const CircularProgressIndicator(),
-                  ),
-                  _TextFormField(
-                    controller: _titleController,
-                    controllerText:
-                        widget.props.note?.title ?? _titleController.text,
-                    hintText: 'Enter Title',
-                    enabled: widget.props.note == null,
-                    isTitle: true,
-                  ),
-                  _TextFormField(
-                    controller: _subtitleController,
-                    controllerText:
-                        widget.props.note?.subtitle ?? _subtitleController.text,
-                    hintText: 'Enter Subtitle',
-                    enabled: widget.props.note == null,
-                    isTitle: false,
-                  )
-                ],
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+          appBar: AppBar(
+              title: Text(widget.props.note != null ? 'Details' : 'Create'),
+              centerTitle: true,
+              leading: BackButton(onPressed: widget.props.back),
+              actions: [
+                Visibility(
+                    visible: widget.props.note == null,
+                    child: IconButton(
+                      onPressed: _createNote,
+                      icon: const Icon(Icons.done, size: 26.0),
+                    ))
+              ]),
+          body: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+                child: Column(
+                  children: [
+                    Visibility(
+                      visible: widget.props.isDownloading,
+                      child: const CircularProgressIndicator(),
+                    ),
+                    _TextFormField(
+                      controller: _titleController,
+                      controllerText:
+                          widget.props.note?.title ?? _titleController.text,
+                      hintText: 'Enter Title',
+                      enabled: widget.props.note == null,
+                      isTitle: true,
+                    ),
+                    _TextFormField(
+                      controller: _subtitleController,
+                      controllerText: widget.props.note?.subtitle ??
+                          _subtitleController.text,
+                      hintText: 'Enter Subtitle',
+                      enabled: widget.props.note == null,
+                      isTitle: false,
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }
 
