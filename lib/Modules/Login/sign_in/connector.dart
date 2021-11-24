@@ -1,21 +1,25 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:notes/Core/Action/login_actions.dart';
 import 'package:notes/Core/State/app_state.dart';
 import 'package:notes/Modules/Login/Screen.dart';
+import 'package:notes/Modules/Login/sign_in/navigator.dart';
 
-class SignUpConnector extends StatelessWidget {
-  const SignUpConnector({Key? key}) : super(key: key);
+class SignInConnector extends StatelessWidget {
+  final _navigator = SignInNavigator();
+
+  SignInConnector({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => StoreConnector<AppState, LoginProps>(
         converter: (store) => LoginProps(
             isLoginInProgress: store.state.user.loginInProgress,
-            canSignUp: false,
-            signUp: () {},
-            back: Navigator.of(context).pop,
-            login: (name, email, password) => store.dispatch(
-                SignUpAction(name: name, email: email, password: password))),
+            canSignUp: true,
+            signUp: _navigator.navigateToSignUp,
+            back: () {},
+            login: (_, email, password) =>
+                store.dispatch(SignInAction(email: email, password: password))),
         builder: (context, props) => LoginScreen(props: props),
       );
 }

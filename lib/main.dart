@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:notes/Core/Middleware/app_middleware.dart';
 import 'package:notes/Core/State/app_state.dart';
 import 'package:notes/Misc/assembler.dart';
+import 'package:notes/Misc/navigator.dart';
 import 'package:notes/Modules/Root/root_connector.dart';
 import 'package:redux/redux.dart';
 
@@ -24,8 +25,9 @@ class NotesApp extends StatelessWidget {
       ),
       child: MaterialApp(
         title: 'Notes',
+        navigatorKey: AppNavigator.globalKey,
         debugShowCheckedModeBanner: false,
-        home: const RootConnector(),
+        home: RootConnector(),
         theme: ThemeData(
           brightness: Brightness.light,
           scaffoldBackgroundColor: Colors.white,
