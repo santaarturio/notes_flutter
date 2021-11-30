@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_function_declarations_over_variables
 
 import 'package:get_it/get_it.dart';
+import 'package:notes/Factory/factory.dart';
 import 'package:notes/Service/login_api.dart';
 import 'package:dio/dio.dart';
 import 'package:notes/Service/notes_api.dart';
@@ -13,5 +14,8 @@ abstract class Assembler {
     final dio = Dio();
     registrar.registerLazySingleton(() => LoginAPI(dio));
     registrar.registerLazySingleton(() => NotesAPI(dio));
+
+    // Factory
+    registrar.registerLazySingleton(() => ScreenFactory());
   };
 }
